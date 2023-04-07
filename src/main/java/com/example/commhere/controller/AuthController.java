@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@Tag(name = "Auth", description = "인증 기 API")
+@Tag(name = "Auth", description = "인증 서비스를 담당합니다.")
 public class AuthController {
 
     private final UserService userService;
@@ -45,5 +45,5 @@ public class AuthController {
 
         return "success";
     }
-
 }
+

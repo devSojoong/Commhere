@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Auth", description = "인증 기능 API")
+@Tag(name = "MyPage", description = "마이페이지 서비스를 담당합니다.")
 public class MyPageController {
 
     private final UserService userService;
@@ -25,7 +25,7 @@ public class MyPageController {
     }
 
     @Operation(summary = "비밀번호 변경", description = "패스워드를 확인 후 변경합니다.")
-    @PostMapping("/mypage/changePassword/{id}")
+    @PatchMapping("/mypage/changePassword/{id}")
     public String changePassword(@PathVariable String id,
                                  @RequestBody PasswordDTO passwordDTO){
         if(passwordDTO.getCurrentPwd().equals("") || passwordDTO.getNewPwd().equals("")) return "비밀번호를 다시 입력해주세요.";
