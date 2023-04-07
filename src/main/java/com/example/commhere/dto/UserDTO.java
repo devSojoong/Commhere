@@ -2,10 +2,7 @@ package com.example.commhere.dto;
 
 import com.example.commhere.entity.User;
 import io.jsonwebtoken.Claims;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -16,6 +13,8 @@ import java.util.Collections;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@ToString
 public class UserDTO {
     private String userId;
     private String password;
