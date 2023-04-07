@@ -1,8 +1,10 @@
 package com.example.commhere.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -34,6 +36,13 @@ public class Pay {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @CreatedDate
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate;
+
+    @Column(name = "deleted_yn")
+    private String deletedYN;
+
     /**
      * insert 되기 전 실행되는 로직.(persist 되기 전)
      */
@@ -41,4 +50,5 @@ public class Pay {
     public void prePersist(){
         this.confirmation = this.confirmation == null ? "Y" : this.confirmation;
     }
+
 }
