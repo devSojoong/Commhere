@@ -1,16 +1,9 @@
 package com.example.commhere.service;
 
-import com.example.commhere.dto.FavorDTO;
-import com.example.commhere.dto.PasswordDTO;
-import com.example.commhere.dto.ReviewDTO;
-import com.example.commhere.dto.UserDTO;
-import com.example.commhere.entity.Favor;
-import com.example.commhere.entity.Review;
-import com.example.commhere.entity.User;
+import com.example.commhere.dto.*;
+import com.example.commhere.entity.*;
 import com.example.commhere.jwt.JwtProvider;
-import com.example.commhere.repository.FavorRepository;
-import com.example.commhere.repository.ReviewRepository;
-import com.example.commhere.repository.UserRepository;
+import com.example.commhere.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +22,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final FavorRepository favorRepository;
     private final ReviewRepository reviewRepository;
+    private final PayRepository payRepository;
+    private final CartRepository cartRepository;
 
     public String signUp(UserDTO userDTO){
         if(userRepository.existsById(userDTO.getUserId())) return userDTO.getUserId() + " 는 이미 존재하는 아이디 입니다.";
@@ -117,6 +112,26 @@ public class UserService {
             User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
             List<Review> reviewList = reviewRepository.findAllByUser(user, pageable);
             return reviewList.stream().map(ReviewDTO::new).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<PayDTO> getPayList(String id, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        if(id != null || !id.equals("")) {
+            User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+            List<Pay> payList = payRepository.findAllByUser(user, pageable);
+            return payList.stream().map(PayDTO::new).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<CartDTO> getCartList(String id, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        if(id != null || !id.equals("")) {
+            User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+            List<Cart> cartList = cartRepository.findAllByUser(user, pageable);
+            return cartList.stream().map(CartDTO::new).collect(Collectors.toList());
         }
         return null;
     }
