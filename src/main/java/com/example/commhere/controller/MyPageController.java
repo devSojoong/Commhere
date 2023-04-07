@@ -1,9 +1,6 @@
 package com.example.commhere.controller;
 
-import com.example.commhere.dto.FavorDTO;
-import com.example.commhere.dto.PasswordDTO;
-import com.example.commhere.dto.ReviewDTO;
-import com.example.commhere.dto.UserDTO;
+import com.example.commhere.dto.*;
 import com.example.commhere.repository.TokenRepository;
 import com.example.commhere.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,4 +51,19 @@ public class MyPageController {
                                       @RequestParam(required = false, defaultValue = "1") int page){
         return userService.getReviewList(id, page-1);
     }
+
+    @Operation(summary = "결제 목록 조회", description = "회원의 결제 목록을 조회합니다.")
+    @GetMapping("/payment/history/{id}")
+    public List<PayDTO> payList(@PathVariable String id,
+                                @RequestParam(required = false, defaultValue = "1") int page){
+        return userService.getPayList(id, page-1);
+    }
+
+    @Operation(summary = "장바구니 목록 조회", description = "회원의 장바구니 목록을 조회합니다.")
+    @GetMapping("/cart/{id}")
+    public List<CartDTO> cartList(@PathVariable String id,
+                                  @RequestParam(required = false, defaultValue = "1") int page) {
+        return userService.getCartList(id, page-1);
+    }
+
 }
