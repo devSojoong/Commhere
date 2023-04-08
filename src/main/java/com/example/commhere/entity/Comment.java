@@ -1,6 +1,8 @@
 package com.example.commhere.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -24,5 +26,10 @@ public class Comment extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Board board;
 
 }
